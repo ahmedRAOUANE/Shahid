@@ -1,0 +1,27 @@
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(3px);
+
+    &.userNavListContainer {
+        backdrop-filter: blur(0px);
+
+        .userNavList {
+            background-color: var(--secondary-color);
+            min-width: 250px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: calc(100% - 64px);
+        }
+    }
+
+    &.searchContainer {
+        .search {
+            background-color: var(--secondary-color);
+            min-width: 250px;
+        }
+    }
+}

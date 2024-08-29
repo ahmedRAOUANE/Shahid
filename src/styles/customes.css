@@ -1,0 +1,8 @@
+/* Header */
+header {
+    background-color: var(--secondary-color);
+
+    h1 {
+        font-size: 30px;
+    }
+}
