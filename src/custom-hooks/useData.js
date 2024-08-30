@@ -10,35 +10,22 @@ const options = {
 };
 
 const useData = () => {
+    const [trending, setTrending] = useState([]);
+
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [topRatedTvShows, setTopRatedTvShows] = useState([]);
 
-    const [allMovies, setAllMovies] = useState([]);
-    const [allTvShows, setAllTvShows] = useState([]);
-
     const [details, setDetails] = useState(null);
 
-    // Fetch all movies sorted by release date
-    const getAllMovies = useCallback(async () => {
+    const getTrending = useCallback(async () => {
         try {
-            const response = await fetch(`${baseUrl}/discover/movie?sort_by=release_date.desc`, options);
+            const response = await fetch(`${baseUrl}/trending/all/day`, options);
             const data = await response.json();
-            setAllMovies(data.results);
+            setTrending(data.results);
         } catch (err) {
             console.log('Error Getting all movies: ', err);
         }
-    }, []);
-
-    // Fetch all TV shows sorted by release date
-    const getAllTVShows = useCallback(async () => {
-        try {
-            const response = await fetch(`${baseUrl}/discover/tv?sort_by=first_air_date.desc`, options);
-            const data = await response.json();
-            setAllTvShows(data.results);
-        } catch (err) {
-            console.log('Error Getting all TV shows: ', err);
-        }
-    }, []);
+    }, [])
 
     // Fetch the top rated tv shows
     const getTopRatedTVShows = useCallback(async () => {
@@ -73,15 +60,13 @@ const useData = () => {
     }, [])
 
     return {
-        allMovies,
-        allTvShows,
+        trending,
         topRatedMovies,
         topRatedTvShows,
         details,
+        getTrending,
         getTopRatedTVShows,
         getTopRatedMovies,
-        getAllMovies,
-        getAllTVShows,
         getDetails
     }
 }

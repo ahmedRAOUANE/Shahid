@@ -17,7 +17,7 @@ const TVShows = () => {
 
       <div className="box">
         {topRatedTvShows.map(show => (
-          <Card type={"tv"} movie={show} key={show.id} imgUrl={`${baseImgUrl}/${show.backdrop_path}`} />
+          <Card type={"tv"} item={show} key={show.id} imgUrl={`${baseImgUrl}/${show.backdrop_path}`} />
         ))}
       </div>
     </div>

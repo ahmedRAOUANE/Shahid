@@ -17,7 +17,7 @@ const Movies = () => {
 
       <div className="box">
         {topRatedMovies.map(movie => (
-          <Card type={"movie"} movie={movie} key={movie.id} imgUrl={`${baseImgUrl}/${movie.backdrop_path}`} />
+          <Card type={"movie"} item={movie} key={movie.id} imgUrl={`${baseImgUrl}/${movie.backdrop_path}`} />
         ))}
       </div>
     </div>

@@ -5,29 +5,19 @@ import { baseImgUrl } from "../utils/constants";
 import Card from "../components/Card";
 
 const Home = () => {
-    const { getAllMovies, getAllTVShows, allMovies, allTvShows } = useData();
+    const { getTrending, trending } = useData();
 
     useEffect(() => {
-        getAllMovies();
-        getAllTVShows();
-    }, [getAllMovies, getAllTVShows]);
+        getTrending();
+    }, [getTrending]);
 
     return (
         <div className="container box column">
             <div className="box column">
-                <h2 className="full-width">Movies</h2>
+                <h2 className="full-width">Latest</h2>
                 <div className="box">
-                    {allMovies.map(movie => (
-                        <Card type={"movie"} movie={movie} key={movie.id} imgUrl={`${baseImgUrl}/${movie.backdrop_path}`} />
-                    ))}
-                </div>
-            </div>
-
-            <div className="box column">
-                <h2 className="full-width">TV Shows</h2>
-                <div className="box">
-                    {allTvShows.map(show => (
-                        <Card type={"tv"} movie={show} key={show.id} imgUrl={`${baseImgUrl}/${show.backdrop_path}`} />
+                    {trending.map(item => (
+                        <Card type={item.media_type} item={item} key={item.id} imgUrl={`${baseImgUrl}/${item.backdrop_path}`} />
                     ))}
                 </div>
             </div>
