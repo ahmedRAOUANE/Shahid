@@ -13,6 +13,7 @@ import HomePage from "./pages/HomePage";
 import Modal from "./components/Modal";
 import TVShows from "./pages/TVShows";
 import Movies from "./pages/Movies";
+import Details from "./pages/Details";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/tv-show" element={<TVShows />} />
         <Route path="/movies" element={<Movies />} />
+        <Route path="/details/:type/:id" element={<Details />} />
       </Routes>
 
       <Modal />

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import useData from "../custom-hooks/useData";
 import { baseImgUrl } from "../utils/constants";
+import Card from "../components/Card";
 
 const Movies = () => {
   const { getTopRatedMovies, topRatedMovies } = useData();
@@ -15,12 +16,8 @@ const Movies = () => {
       <h2>Movies</h2>
 
       <div className="box">
-        {topRatedMovies.map(show => (
-          <div key={show.id} className="card box column paper outline btn" style={{ backgroundImage: `url(${baseImgUrl}/${show.backdrop_path})` }}>
-            <div className="card-body full-width box column">
-              <h3 className="card-title">{show.title}</h3>
-            </div>
-          </div>
+        {topRatedMovies.map(movie => (
+          <Card type={"movie"} movie={movie} key={movie.id} imgUrl={`${baseImgUrl}/${movie.backdrop_path}`} />
         ))}
       </div>
     </div>

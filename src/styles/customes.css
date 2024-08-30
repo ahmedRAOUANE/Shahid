@@ -35,3 +35,15 @@ header {
     }
 
 }
+/* poster */
+.details-poster {
+    img {
+        width: 300px;
+    }
+}
+
+.more-details {
+    p {
+        flex: calc(50% - 10px);
+    }
+}

@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import useData from "../custom-hooks/useData";
 import { baseImgUrl } from "../utils/constants";
+import Card from "../components/Card";
 
 const Home = () => {
     const { getAllMovies, getAllTVShows, allMovies, allTvShows } = useData();
@@ -17,11 +18,7 @@ const Home = () => {
                 <h2 className="full-width">Movies</h2>
                 <div className="box">
                     {allMovies.map(movie => (
-                        <div key={movie.id} className="card box column paper outline btn" style={{ backgroundImage: `url(${baseImgUrl}/${movie.backdrop_path})` }}>
-                            <div className="card-body full-width box column">
-                                <h3 className="card-title">{movie.title}</h3>
-                            </div>
-                        </div>
+                        <Card type={"movie"} movie={movie} key={movie.id} imgUrl={`${baseImgUrl}/${movie.backdrop_path}`} />
                     ))}
                 </div>
             </div>
@@ -30,11 +27,7 @@ const Home = () => {
                 <h2 className="full-width">TV Shows</h2>
                 <div className="box">
                     {allTvShows.map(show => (
-                        <div key={show.id} className="card box column paper outline btn" style={{ backgroundImage: `url(${baseImgUrl}/${show.backdrop_path})` }}>
-                            <div className="card-body full-width box column">
-                                <h3 className="card-title">{show.name}</h3>
-                            </div>
-                        </div>
+                        <Card type={"tv"} movie={show} key={show.id} imgUrl={`${baseImgUrl}/${show.backdrop_path}`} />
                     ))}
                 </div>
             </div>
