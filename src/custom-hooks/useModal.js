@@ -14,9 +14,15 @@ const useModal = () => {
         dispatch(setWindow(""));
     }
 
+    const toggleWindow = (isOpen, window) => {
+        dispatch(setIsOpen(isOpen));
+        dispatch(setWindow(window));
+    }
+
     return {
         openWindow,
-        closeWindow
+        closeWindow,
+        toggleWindow
     }
 }
 

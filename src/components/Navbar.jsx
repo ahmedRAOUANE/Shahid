@@ -13,10 +13,8 @@ const NavBar = ({ className = "" }) => {
 
     const links = [
         { name: "Home", path: "/" },
-        { name: "Free", path: "/free" },
         { name: "TV Show", path: "/tv-show" },
         { name: "Movies", path: "/movies" },
-        { name: "Explore", path: "/explore" },
     ];
 
     const switchTheme = () => {

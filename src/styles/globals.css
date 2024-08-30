@@ -17,6 +17,7 @@
   --active-color: #129472;
   --border-color: #e0e0e0;
   --button-background: #e0e0e0;
+  --button-hover-background: #939393;
   --button-text-color: #181c25;
 
   /* Shadows */
@@ -47,6 +48,7 @@
   --active-color: #129472;
   --border-color: #2e3a47;
   --button-background: #2e3a47;
+  --button-hover-background: #313e4b;
   --button-text-color: #e8eaee;
 
   /* Shadows */

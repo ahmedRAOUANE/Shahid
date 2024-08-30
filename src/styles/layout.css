@@ -23,8 +23,8 @@
 .paper {
     padding: var(--main-padding);
     box-shadow: var(--out-line), var(--light-shadow);
-    background-color: var(--white-color);
-    color: var(--main-color);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
     border-radius: 7px;
 }
 

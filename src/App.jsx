@@ -11,10 +11,8 @@ import "./styles/customes.css";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import Modal from "./components/Modal";
-import Free from "./pages/Free";
 import TVShows from "./pages/TVShows";
 import Movies from "./pages/Movies";
-import Explore from "./pages/Explore";
 
 function App() {
   return (
@@ -23,10 +21,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/free" element={<Free />} />
         <Route path="/tv-show" element={<TVShows />} />
         <Route path="/movies" element={<Movies />} />
-        <Route path="/explore" element={<Explore />} />
       </Routes>
 
       <Modal />
