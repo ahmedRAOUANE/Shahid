@@ -29,13 +29,21 @@ const Details = () => {
                     <div className="box column full-width" style={{ padding: "0 20px" }}>
                         <h1 className="full-width">{details.title || details.name}</h1>
 
-                        <div className="box column ai-start full-width" style={{ gap: 0 }}>
-                            <p style={{ marginBottom: "20px" }}>{details.overview}</p>
+                        <div className="box column ai-start full-width">
+                            <p className="overview">{details.overview}</p>
 
                             <div className="box jc-start">
                                 {details.genres.map(genere => (
                                     <span className="small" key={genere.id}>{genere.name}</span>
                                 ))}
+                            </div>
+
+                            <div className="full-width">
+                                {/* link to watch page if posible */}
+                                <button className="transparent btn box">
+                                    <FontAwesomeIcon icon={faPlay} />
+                                    <span>Watch now</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -67,11 +75,6 @@ const Details = () => {
                 </div>
 
                 <div className="full-width box jc-start paper">
-                    {/* link to watch page if posible */}
-                    <button className="transparent btn box">
-                        <FontAwesomeIcon icon={faPlay} />
-                        <span>Watch now</span>
-                    </button>
 
                     {/* check fist if the user is logged in */}
                     <button className="transparent btn box">
