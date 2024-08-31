@@ -77,14 +77,17 @@ const Details = () => {
                 <div className="full-width box jc-start paper">
 
                     {/* check fist if the user is logged in */}
+                    {/* this button will open a window and let the user rate the movie or tv show */}
                     <button className="transparent btn box">
                         <FontAwesomeIcon icon={faStarHalfStroke} />
                         <span>Rate</span>
                     </button>
+
                     <button className="transparent btn box">
                         <FontAwesomeIcon icon={faComment} />
                         <span>Comment</span>
                     </button>
+
                     <button className="transparent btn box">
                         <FontAwesomeIcon icon={faPlus} />
                         <span>Add to List</span>
@@ -96,3 +99,4 @@ const Details = () => {
 }
 
 export default Details
+
