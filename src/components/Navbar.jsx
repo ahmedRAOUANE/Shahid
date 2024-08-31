@@ -9,12 +9,13 @@ const NavBar = ({ className = "" }) => {
     // State to keep track of the current theme
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
-    const { openWindow } = useModal();
+    const { openWindow, closeWindow } = useModal();
 
     const links = [
         { name: "Home", path: "/" },
         { name: "TV Show", path: "/tv-show" },
         { name: "Movies", path: "/movies" },
+        { name: "watch list", path: "/watch-list" },
     ];
 
     const switchTheme = () => {
@@ -33,7 +34,7 @@ const NavBar = ({ className = "" }) => {
             <nav className="full-width">
                 <ul className={`box full-width ${className}`} style={{ gap: "10px" }}>
                     {links.map((link, idx) => (
-                        <li key={idx} className="full-width">
+                        <li key={idx} className="full-width" onClick={closeWindow}>
                             <NavLink
                                 to={link.path}
                                 className={({ isActive }) =>
@@ -63,8 +64,8 @@ const NavBar = ({ className = "" }) => {
             </button>
 
             <div className={`box ${className}`}>
-                <Link to={"/Login"} className="btn full-width text-center success">Login</Link>
-                <Link to={"/register"} className="btn full-width text-center">Register</Link>
+                <Link onClick={closeWindow} to={"/Login"} className="btn full-width text-center success">Login</Link>
+                <Link onClick={closeWindow} to={"/register"} className="btn full-width text-center">Register</Link>
             </div>
         </div>
     )

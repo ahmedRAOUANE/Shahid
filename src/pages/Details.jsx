@@ -1,21 +1,31 @@
+/* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import useData from "../custom-hooks/useData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { baseImgUrl } from "../utils/constants";
-import { faComment, faPlay, faPlus, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+import {
+    faComment, // you can remove this if unused
+    faMinus,
+    faPlay, // you can remove this if unused
+    faPlus,
+    faStarHalfStroke // you can remove this if unused
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Details = () => {
     const { type, id } = useParams();
-    const { getDetails, details } = useData();
+    const [inWatchList, setInWatchList] = useState(false);
+
+    const { getDetails, details, addToWatchList, isInWatchList, removeFromWatchList } = useData();
 
     useEffect(() => {
-        getDetails(type, id)
-    }, [getDetails, type, id])
+        getDetails(type, id);
+    }, [getDetails, type, id]);
 
-    console.log(details);
+    useEffect(() => {
+        setInWatchList(isInWatchList(Number(id)));
+    }, [id, isInWatchList]);
 
-    // return the loading comoponent
     if (!details) return <p>Loading...</p>;
 
     return (
@@ -38,12 +48,33 @@ const Details = () => {
                                 ))}
                             </div>
 
-                            <div className="full-width">
-                                {/* link to watch page if posible */}
-                                <button className="transparent btn box">
+                            <div className="full-width box jc-start">
+                                {/* for the watch feature */}
+                                {/* <button className="transparent btn box">
                                     <FontAwesomeIcon icon={faPlay} />
-                                    <span>Watch now</span>
-                                </button>
+                                    <span>Watch Now</span>
+                                </button> */}
+
+                                {inWatchList ? (
+                                    <button
+                                        onClick={() => removeFromWatchList(Number(id), setInWatchList)}
+                                        className="transparent btn box"
+                                    >
+                                        <FontAwesomeIcon icon={faMinus} />
+                                        <span>Remove from Watch List</span>
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => {
+                                            addToWatchList(details, type);
+                                            setInWatchList(true);
+                                        }}
+                                        className="transparent btn box"
+                                    >
+                                        <FontAwesomeIcon icon={faPlus} />
+                                        <span>Add To Watch List</span>
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -74,9 +105,8 @@ const Details = () => {
                     </div>
                 </div>
 
-                <div className="full-width box jc-start paper">
-
-                    {/* check fist if the user is logged in */}
+                {/* rate and comment features */}
+                {/* <div className="full-width box jc-start paper">
                     <button className="transparent btn box">
                         <FontAwesomeIcon icon={faStarHalfStroke} />
                         <span>Rate</span>
@@ -85,14 +115,10 @@ const Details = () => {
                         <FontAwesomeIcon icon={faComment} />
                         <span>Comment</span>
                     </button>
-                    <button className="transparent btn box">
-                        <FontAwesomeIcon icon={faPlus} />
-                        <span>Add to List</span>
-                    </button>
-                </div>
+                </div> */}
             </div>
         </div>
     )
 }
 
-export default Details
+export default Details;

@@ -81,6 +81,39 @@ const useData = () => {
         }
     }, []);
 
+    // Add an item to the watch list
+    const addToWatchList = (item, mediaType) => {
+        const watchList = JSON.parse(localStorage.getItem("watchList")) || [];
+
+        // Check if the item is already in the watch list to prevent duplicates
+        const isAlreadyInWatchList = watchList.some(watchItem => watchItem.id === item.id);
+        if (!isAlreadyInWatchList) {
+            watchList.push({ ...item, media_type: mediaType });
+            localStorage.setItem("watchList", JSON.stringify(watchList));
+        }
+    }
+
+    const isInWatchList = (id) => {
+        const watchList = JSON.parse(localStorage.getItem("watchList")) || [];
+        return watchList.some(watchItem => watchItem.id === id);
+    };
+
+    const removeFromWatchList = (id, updateStateCallback) => {
+        const watchList = JSON.parse(localStorage.getItem("watchList")) || [];
+        const updatedWatchList = watchList.filter(watchItem => watchItem.id !== id);
+        localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
+
+        // Invoke the callback to update the state
+        if (updateStateCallback) {
+            updateStateCallback(false);
+        }
+    };
+
+    // Get the watch list from localStorage
+    const getWatchList = () => {
+        return JSON.parse(localStorage.getItem("watchList")) || [];
+    }
+
     return {
         trending,
         topRatedMovies,
@@ -93,7 +126,11 @@ const useData = () => {
         getTopRatedTVShows,
         getTopRatedMovies,
         getDetails,
-        search
+        search,
+        addToWatchList,
+        removeFromWatchList,
+        getWatchList,
+        isInWatchList
     }
 }
 

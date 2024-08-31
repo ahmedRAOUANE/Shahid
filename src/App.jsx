@@ -14,6 +14,7 @@ import Modal from "./components/Modal";
 import TVShows from "./pages/TVShows";
 import Movies from "./pages/Movies";
 import Details from "./pages/Details";
+import WatchList from "./pages/WatchList";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/tv-show" element={<TVShows />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/details/:type/:id" element={<Details />} />
+        <Route path="/watch-list" element={<WatchList />} />
       </Routes>
 
       <Modal />
