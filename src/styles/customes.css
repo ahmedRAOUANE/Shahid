@@ -18,6 +18,14 @@ header {
     overflow: hidden;
     border: 1px;
 
+    &.mini-card {
+            width: 75px;
+            height: 115px;
+    
+            .card-body {
+                background-color: transparent;
+            }
+        }
     .card-body {
         justify-content: flex-end;
         padding: 10px 20px;

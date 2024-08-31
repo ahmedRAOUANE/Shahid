@@ -17,6 +17,10 @@ const useData = () => {
 
     const [details, setDetails] = useState(null);
 
+    const [searchResults, setSearchResults] = useState([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [searchError, setSearchError] = useState(null);
+
     const getTrending = useCallback(async () => {
         try {
             const response = await fetch(`${baseUrl}/trending/all/day`, options);
@@ -59,15 +63,37 @@ const useData = () => {
         }
     }, [])
 
+    // Search for movies, TV shows, or people
+    const search = useCallback(async (query) => {
+        if (!query) return;
+        setSearchLoading(true);
+        setSearchError(null);
+
+        try {
+            const response = await fetch(`${baseUrl}/search/multi?query=${encodeURIComponent(query)}`, options);
+            const data = await response.json();
+            setSearchResults(data.results);
+        } catch (err) {
+            console.error('Error searching: ', err);
+            setSearchError('Failed to fetch search results.');
+        } finally {
+            setSearchLoading(false);
+        }
+    }, []);
+
     return {
         trending,
         topRatedMovies,
         topRatedTvShows,
         details,
+        searchResults,
+        searchLoading,
+        searchError,
         getTrending,
         getTopRatedTVShows,
         getTopRatedMovies,
-        getDetails
+        getDetails,
+        search
     }
 }
 

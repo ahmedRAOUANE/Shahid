@@ -143,6 +143,9 @@
     box-shadow: var(--out-line);
 }
 
+.no-gap {
+    gap: 0;
+}
 /* dimensions */
 .full-width {
     width: 100%;
