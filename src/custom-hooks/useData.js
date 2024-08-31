@@ -21,6 +21,8 @@ const useData = () => {
     const [searchLoading, setSearchLoading] = useState(false);
     const [searchError, setSearchError] = useState(null);
 
+    const [trailer, setTrailer] = useState(null);
+
     const getTrending = useCallback(async () => {
         try {
             const response = await fetch(`${baseUrl}/trending/all/day`, options);
@@ -114,6 +116,24 @@ const useData = () => {
         return JSON.parse(localStorage.getItem("watchList")) || [];
     }
 
+    // get movie or tv show trailer
+    const getTrailer = useCallback(async (type, id) => {
+        try {
+            const response = await fetch(`${baseUrl}/${type}/${id}/videos`, options);
+            const data = await response.json();
+            const trailers = data.results.filter(video => video.type === "Trailer" && video.site === "YouTube");
+
+            if (trailers.length > 0) {
+                setTrailer(trailers[0]); // Set the first available trailer
+            } else {
+                setTrailer(null); // No trailer available
+            }
+        } catch (err) {
+            console.error("Failed to fetch trailer:", err);
+            setTrailer(null);
+        }
+    }, []);
+
     return {
         trending,
         topRatedMovies,
@@ -122,6 +142,7 @@ const useData = () => {
         searchResults,
         searchLoading,
         searchError,
+        trailer,
         getTrending,
         getTopRatedTVShows,
         getTopRatedMovies,
@@ -130,7 +151,8 @@ const useData = () => {
         addToWatchList,
         removeFromWatchList,
         getWatchList,
-        isInWatchList
+        isInWatchList,
+        getTrailer
     }
 }
 

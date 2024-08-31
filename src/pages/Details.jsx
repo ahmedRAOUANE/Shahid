@@ -16,11 +16,12 @@ const Details = () => {
     const { type, id } = useParams();
     const [inWatchList, setInWatchList] = useState(false);
 
-    const { getDetails, details, addToWatchList, isInWatchList, removeFromWatchList } = useData();
+    const { getDetails, details, addToWatchList, isInWatchList, removeFromWatchList, getTrailer, trailer } = useData();
 
     useEffect(() => {
         getDetails(type, id);
-    }, [getDetails, type, id]);
+        getTrailer(type, id);
+    }, [getDetails, type, id, getTrailer]);
 
     useEffect(() => {
         setInWatchList(isInWatchList(Number(id)));
@@ -34,7 +35,7 @@ const Details = () => {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
         }}>
-            <div className="box column" style={{ backdropFilter: "brightness(0.5)" }}>
+            <div className="box column js-start" style={{ backdropFilter: "brightness(0.5)" }}>
                 <div className="box full-width" style={{ marginTop: "20px" }}>
                     <div className="box column full-width" style={{ padding: "0 20px" }}>
                         <h1 className="full-width">{details.title || details.name}</h1>
@@ -116,6 +117,21 @@ const Details = () => {
                         <span>Comment</span>
                     </button>
                 </div> */}
+
+                {/* Trailer */}
+                {trailer && (
+                    <div className="trailer-container box center-x">
+                        <div className="trailer paper disable-guitters">
+                            <iframe
+                                src={`https://www.youtube.com/embed/${trailer.key}`}
+                                title={trailer.name}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     )

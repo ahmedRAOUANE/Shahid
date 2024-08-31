@@ -2,7 +2,7 @@
 import { faCircleHalfStroke, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import useModal from "../custom-hooks/useModal";
 
 const NavBar = ({ className = "" }) => {
@@ -63,10 +63,11 @@ const NavBar = ({ className = "" }) => {
                 </div>
             </button>
 
-            <div className={`box ${className}`}>
+            {/* For the Auth Feture */}
+            {/* <div className={`box ${className}`}>
                 <Link onClick={closeWindow} to={"/Login"} className="btn full-width text-center success">Login</Link>
                 <Link onClick={closeWindow} to={"/register"} className="btn full-width text-center">Register</Link>
-            </div>
+            </div> */}
         </div>
     )
 }

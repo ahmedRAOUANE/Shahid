@@ -58,3 +58,28 @@ header {
     letter-spacing: 1px;
     line-height: 1.6;
 }
+.trailer-container {
+    width: 100%;
+
+    @media (min-width: 768px) {
+        width: 80%;
+    }
+
+    @media (min-width: 991px) {
+        width: 60%;
+    }
+
+    .trailer {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        padding-bottom: 56.25%;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+        }
+    }
+}
