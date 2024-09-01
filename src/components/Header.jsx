@@ -23,7 +23,7 @@ const Header = () => {
 
                     {/* small media */}
                     <div className="hide-in-large">
-                        <button onClick={() => toggleWindow(!isOpen, "userNavList")} className="icon" style={{ width: "40px" }}>
+                        <button onClick={() => toggleWindow(!isOpen, "userNavList")}>
                             <FontAwesomeIcon icon={faBars} size="xl" />
                         </button>
                     </div>

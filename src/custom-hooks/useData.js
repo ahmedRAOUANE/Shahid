@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
-import { autherizationKey, baseUrl } from "../utils/constants";
+import { accessToken, baseUrl } from "../utils/constants";
 
 const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${autherizationKey}`
+        Authorization: `Bearer ${accessToken}`
     }
 };
 
@@ -13,7 +13,6 @@ const useData = () => {
     const [trending, setTrending] = useState([]);
 
     const [topRatedMovies, setTopRatedMovies] = useState([]);
-    const [topRatedTvShows, setTopRatedTvShows] = useState([]);
 
     const [details, setDetails] = useState(null);
 
@@ -23,9 +22,13 @@ const useData = () => {
 
     const [trailer, setTrailer] = useState(null);
 
+    const [upcomingMovies, setUpcomingMovies] = useState([]);
+    const [featuredMovies, setFeaturedMovies] = useState([])
+
+    // Get the trending movies
     const getTrending = useCallback(async () => {
         try {
-            const response = await fetch(`${baseUrl}/trending/all/day`, options);
+            const response = await fetch(`${baseUrl}/trending/movie/day`, options);
             const data = await response.json();
             setTrending(data.results);
         } catch (err) {
@@ -33,18 +36,7 @@ const useData = () => {
         }
     }, [])
 
-    // Fetch the top rated tv shows
-    const getTopRatedTVShows = useCallback(async () => {
-        try {
-            const response = await fetch(`${baseUrl}/tv/top_rated`, options);
-            const data = await response.json()
-            setTopRatedTvShows(data.results)
-        } catch (err) {
-            console.log('Error Getting top rated tv shows: ', err);
-        }
-    }, [])
-
-    // Fetch the top rated movies
+    // get the top rated movies
     const getTopRatedMovies = useCallback(async () => {
         try {
             const response = await fetch(`${baseUrl}/movie/top_rated`, options);
@@ -57,22 +49,23 @@ const useData = () => {
 
     const getDetails = useCallback(async (type, id) => {
         try {
-            const response = await fetch(`${baseUrl}/${type}/${id}`, options);
+            const response = await fetch(`${baseUrl}/movie/${id}`, options);
             const data = await response.json();
+
             setDetails(data);
         } catch (err) {
             console.error("Failed to fetch details:", err);
         }
     }, [])
 
-    // Search for movies, TV shows, or people
+    // Search for movies
     const search = useCallback(async (query) => {
         if (!query) return;
         setSearchLoading(true);
         setSearchError(null);
 
         try {
-            const response = await fetch(`${baseUrl}/search/multi?query=${encodeURIComponent(query)}`, options);
+            const response = await fetch(`${baseUrl}/search/movie?query=${encodeURIComponent(query)}`, options);
             const data = await response.json();
             setSearchResults(data.results);
         } catch (err) {
@@ -85,10 +78,10 @@ const useData = () => {
 
     // Add an item to the watch list
     const addToWatchList = (item, mediaType) => {
-        const watchList = JSON.parse(localStorage.getItem("watchList")) || [];
+        const watchList = getWatchList();
 
         // Check if the item is already in the watch list to prevent duplicates
-        const isAlreadyInWatchList = watchList.some(watchItem => watchItem.id === item.id);
+        const isAlreadyInWatchList = isInWatchList(item.id);
         if (!isAlreadyInWatchList) {
             watchList.push({ ...item, media_type: mediaType });
             localStorage.setItem("watchList", JSON.stringify(watchList));
@@ -116,10 +109,10 @@ const useData = () => {
         return JSON.parse(localStorage.getItem("watchList")) || [];
     }
 
-    // get movie or tv show trailer
-    const getTrailer = useCallback(async (type, id) => {
+    // get movie trailer
+    const getTrailer = useCallback(async (id) => {
         try {
-            const response = await fetch(`${baseUrl}/${type}/${id}/videos`, options);
+            const response = await fetch(`${baseUrl}/movie/${id}/videos`, options);
             const data = await response.json();
             const trailers = data.results.filter(video => video.type === "Trailer" && video.site === "YouTube");
 
@@ -134,17 +127,40 @@ const useData = () => {
         }
     }, []);
 
+    // Get the upcomming movies
+    const getUpcomingMovies = useCallback(async () => {
+        try {
+            const response = await fetch(`${baseUrl}/movie/upcoming`, options);
+            const data = await response.json();
+            setUpcomingMovies(data.results);
+        } catch (err) {
+            console.error('Error fetching upcoming movies: ', err);
+        }
+    }, []);
+
+    // get Featured Movies
+    const getFeaturedMovies = useCallback(async () => {
+        try {
+            const response = await fetch(`${baseUrl}/movie/now_playing`, options);
+            const data = await response.json();
+            setFeaturedMovies(data.results);
+        } catch (err) {
+            console.error("Error fetching featured movies: ", err);
+        }
+    }, []);
+
     return {
         trending,
         topRatedMovies,
-        topRatedTvShows,
         details,
         searchResults,
         searchLoading,
         searchError,
         trailer,
+        upcomingMovies,
+        featuredMovies,
+
         getTrending,
-        getTopRatedTVShows,
         getTopRatedMovies,
         getDetails,
         search,
@@ -152,7 +168,9 @@ const useData = () => {
         removeFromWatchList,
         getWatchList,
         isInWatchList,
-        getTrailer
+        getTrailer,
+        getUpcomingMovies,
+        getFeaturedMovies
     }
 }
 

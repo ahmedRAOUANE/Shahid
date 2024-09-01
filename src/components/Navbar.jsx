@@ -12,9 +12,10 @@ const NavBar = ({ className = "" }) => {
     const { openWindow, closeWindow } = useModal();
 
     const links = [
-        { name: "Home", path: "/" },
-        { name: "TV Show", path: "/tv-show" },
-        { name: "Movies", path: "/movies" },
+        { name: "trending", path: "/" },
+        { name: "top rated", path: "/top-rated" },
+        { name: "upcoming", path: "/upcoming" },
+        { name: "featured", path: "/featured" },
         { name: "watch list", path: "/watch-list" },
     ];
 
@@ -62,12 +63,6 @@ const NavBar = ({ className = "" }) => {
                     Switch Theme
                 </div>
             </button>
-
-            {/* For the Auth Feture */}
-            {/* <div className={`box ${className}`}>
-                <Link onClick={closeWindow} to={"/Login"} className="btn full-width text-center success">Login</Link>
-                <Link onClick={closeWindow} to={"/register"} className="btn full-width text-center">Register</Link>
-            </div> */}
         </div>
     )
 }

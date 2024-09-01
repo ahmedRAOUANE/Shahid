@@ -26,6 +26,7 @@ const Search = () => {
         <div className="box column">
             <div className="box full-width search-input">
                 <h2 className="disable-guitters hide-in-small">Search</h2>
+
                 <form className="box full-width" onSubmit={handleSearch}>
                     <input
                         className="full-width"
@@ -43,22 +44,20 @@ const Search = () => {
                     </button>
                 </form>
             </div>
+
             <div className="box column search-results scroller">
                 {searchResults.length > 0 ? (
                     <ul className="box column">
                         {searchResults.map((result) => (
                             <li className="btn full-width" key={result.id} onClick={closeWindow}>
                                 <Link className="box jc-start ai-start" to={`/details/${result.media_type}/${result.id}`}>
-                                    <Card noText className="mini-card" item={result} type={result.media_type} imgUrl={`${baseImgUrl}/${result.backdrop_path}`} />
+                                    <Card noText className="mini-card" item={result} imgUrl={`${baseImgUrl}/${result.backdrop_path}`} />
+
                                     <div className="box column ai-start full-width">
-                                        <div className="box column ai-start no-gap">
                                             <h2 className="full-width disable-guitters">
                                                 {result.title || result.name}
                                             </h2>
-                                            <span>
-                                                {result.media_type}
-                                            </span>
-                                        </div>
+
                                         <div className="box">
                                             <strong>Release Date:</strong> {result.release_date || result.first_air_date}
                                         </div>

@@ -1,21 +1,17 @@
 import useData from "../custom-hooks/useData";
-import Card from "../components/Card";
-import { baseImgUrl } from "../utils/constants";
+import Page from "../components/Page";
 
 const WatchList = () => {
     const { getWatchList } = useData();
 
     const watchList = getWatchList();
 
-    return (
+    return watchList.length > 0 ? (
+        <Page items={watchList} pageTitle={"Watch List"} />
+    ) : (
         <div className="container">
-            <h2>Watch List</h2>
-
-            <div className="box jc-start">
-                {watchList.map(show => (
-                    <Card type={show.media_type} item={show} key={show.id} imgUrl={`${baseImgUrl}/${show.backdrop_path}`} />
-                ))}
-            </div>
+                <h2 className="full-width">Watch List</h2>
+                <p>No Movies Have Been Added</p>
         </div>
     )
 }

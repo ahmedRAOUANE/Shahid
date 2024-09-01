@@ -3,13 +3,7 @@ import { useParams } from "react-router-dom";
 import useData from "../custom-hooks/useData";
 import { useEffect, useState } from "react";
 import { baseImgUrl } from "../utils/constants";
-import {
-    faComment, // you can remove this if unused
-    faMinus,
-    faPlay, // you can remove this if unused
-    faPlus,
-    faStarHalfStroke // you can remove this if unused
-} from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Details = () => {
@@ -20,7 +14,7 @@ const Details = () => {
 
     useEffect(() => {
         getDetails(type, id);
-        getTrailer(type, id);
+        getTrailer(id);
     }, [getDetails, type, id, getTrailer]);
 
     useEffect(() => {
@@ -29,7 +23,8 @@ const Details = () => {
 
     if (!details) return <p>Loading...</p>;
 
-    return (
+    return details
+        ? (
         <div className="full-width full-height" style={{
             backgroundImage: `url(${baseImgUrl}/${details.backdrop_path})`,
             backgroundRepeat: "no-repeat",
@@ -38,10 +33,10 @@ const Details = () => {
             <div className="box column js-start" style={{ backdropFilter: "brightness(0.5)" }}>
                 <div className="box full-width" style={{ marginTop: "20px" }}>
                     <div className="box column full-width" style={{ padding: "0 20px" }}>
-                        <h1 className="full-width">{details.title || details.name}</h1>
+                            <h1 className="full-width" style={{ color: "white" }}>{details.title || details.name}</h1>
 
                         <div className="box column ai-start full-width">
-                            <p className="overview">{details.overview}</p>
+                                <p className="overview" style={{ color: "white" }}>{details.overview}</p>
 
                             <div className="box jc-start">
                                 {details.genres.map(genere => (
@@ -49,13 +44,7 @@ const Details = () => {
                                 ))}
                             </div>
 
-                            <div className="full-width box jc-start">
-                                {/* for the watch feature */}
-                                {/* <button className="transparent btn box">
-                                    <FontAwesomeIcon icon={faPlay} />
-                                    <span>Watch Now</span>
-                                </button> */}
-
+                                <div className="full-width box jc-start">
                                 {inWatchList ? (
                                     <button
                                         onClick={() => removeFromWatchList(Number(id), setInWatchList)}
@@ -106,18 +95,6 @@ const Details = () => {
                     </div>
                 </div>
 
-                {/* rate and comment features */}
-                {/* <div className="full-width box jc-start paper">
-                    <button className="transparent btn box">
-                        <FontAwesomeIcon icon={faStarHalfStroke} />
-                        <span>Rate</span>
-                    </button>
-                    <button className="transparent btn box">
-                        <FontAwesomeIcon icon={faComment} />
-                        <span>Comment</span>
-                    </button>
-                </div> */}
-
                 {/* Trailer */}
                 {trailer && (
                     <div className="trailer-container box center-x">
@@ -135,6 +112,9 @@ const Details = () => {
             </div>
         </div>
     )
+        : (
+            <div>No Details available For Now, Try Again Later..</div>
+        )
 }
 
 export default Details;

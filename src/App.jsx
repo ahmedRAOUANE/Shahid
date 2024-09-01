@@ -9,12 +9,13 @@ import "./styles/customes.css";
 
 // components
 import Header from "./components/Header";
-import HomePage from "./pages/HomePage";
 import Modal from "./components/Modal";
-import TVShows from "./pages/TVShows";
-import Movies from "./pages/Movies";
 import Details from "./pages/Details";
 import WatchList from "./pages/WatchList";
+import Trending from "./pages/Trending";
+import TopRated from "./pages/TopRated";
+import Upcoming from "./pages/Upcoming";
+import Featured from "./pages/featured";
 
 function App() {
   return (
@@ -22,9 +23,10 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/tv-show" element={<TVShows />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/" element={<Trending />} />
+        <Route path="/top-rated" element={<TopRated />} />
+        <Route path="/upcoming" element={<Upcoming />} />
+        <Route path="/featured" element={<Featured />} />
         <Route path="/details/:type/:id" element={<Details />} />
         <Route path="/watch-list" element={<WatchList />} />
       </Routes>
