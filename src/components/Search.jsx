@@ -67,7 +67,7 @@ const Search = () => {
                         ))}
                     </ul>
                 ) : (
-                    <p>Search movies, TV shows, people...</p>
+                        <p>Search movies...</p>
                 )}
             </div>
         </div>
